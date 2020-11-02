@@ -138,12 +138,12 @@ running = True
 while running:
     # Держим цикл на правильной скорости
     clock.tick(FPS)
+    if time > 600:
+        running = False
     # Ввод процесса (события)
     for event in pygame.event.get():
         # check for closing window
         if event.type == pygame.QUIT:
-            record_table(name, score)
-            sort_table()
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
@@ -156,7 +156,9 @@ while running:
                 if sprite.rect.right > pos[0] > sprite.rect.x and sprite.rect.bottom > pos[1] > sprite.rect.y:
                     sprite.kill()
                     score += 2
-
+    if running == False:
+        record_table(name, score)
+        sort_table()
 
 
     # Обновление
